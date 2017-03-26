@@ -1,25 +1,38 @@
+<?php 
+if (isset($_COOKIE['username'])) {
+  $current_user = $_COOKIE['username'];
+} 
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Simple Project</title>
-	  <!--Import Google Icon Font-->
-      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <?php 
+    require'header.php'
+  ?>
 </head>
 
 <body>
 	<!-- Navigation here-->
 	 <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo right">Logo</a>
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <?php 
+          if(isset($current_user)){
+
+            echo '<li><a class="dropdown-button" href= "#"  data-activates="dropdown1" >Hello, '.$current_user.' </a></li>';
+          // Dropdown Structure
+         echo' <ul id="dropdown1" class="dropdown-content">
+                 <li><a href="logout.php">Logout</a></li>
+              </ul>';
+
+
+          } else {
+            echo ' <li><a href= "login.php"> Login </a></li>';
+          }
+
+       ?>
       </ul>
     </div>
   </nav>
@@ -68,6 +81,7 @@
     <!-- slider end -->
 
     <!-- cards -->
+    <div class="row">
     <!-- 1st card -->
     <div class="col s12 m4">
     <h2 class="header">Horizontal Card</h2>
@@ -119,18 +133,20 @@
       </div>
     </div>
   </div>
+  </div>
+
     <!-- cards end -->
 
-	   <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
-
-      <script >
-        $(document).ready(function(){
+	  <?php 
+        require'script.php';
+     ?>
+     <script >
+    $(document).ready(function(){
+          $('.dropdown-button').dropdown();
       $('.slider').slider();
     });
-        
-      </script>
-    
+    </script>
+
+
 </body>
 </html>
